@@ -19,7 +19,7 @@ int width, int height, bool fullscreen) {
 
             if (m_pRenderer != 0) { // renderer init success
                 std::cout<< "renderer creation success\n";
-                SDL_SetRenderDrawColor(m_pRenderer, 255,255,255,255); 
+                SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255); 
             }
             else {
                 std::cout << "renderer init fail\n";
@@ -42,10 +42,11 @@ int width, int height, bool fullscreen) {
     return true;
 }
 
-void Game::render() {
-    SDL_RenderClear(m_pRenderer); // clear the render to draw colot
 
+void Game::render() {
     SDL_RenderPresent(m_pRenderer); // draw to the screen
+    SDL_RenderClear(m_pRenderer); // clear the render to draw color
+
 }
 
 void Game::clean() {
@@ -71,5 +72,38 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-    
+    // // load image
+    // SDL_Surface* pTempSurface = SDL_LoadBMP("../assets/rider_50_50.bmp");
+    // m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
+    // SDL_FreeSurface(pTempSurface);
+
+    // // get picture width and height
+    // SDL_QueryTexture(m_pTexture, NULL, NULL,
+    // &m_sourceRectangle.w, &m_sourceRectangle.h);
+    // m_sourceRectangle.w /= 2;
+    // m_sourceRectangle.h /= 2;
+    // m_sourceRectangle.x = 20;
+    // m_sourceRectangle.y = 20;
+    // m_destinationRectangle.x = 100;
+    // m_destinationRectangle.y = 100;
+    // m_destinationRectangle.w = m_sourceRectangle.w;
+    // m_destinationRectangle.h = m_sourceRectangle.h;
+
+    // SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);
+    // // SDL_RenderCopy(m_pRenderer, m_pTexture, NULL, NULL);
+
+    // running animate
+    SDL_Surface* pTempSurface = SDL_LoadBMP("../assets/animate.bmp");
+    m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
+    SDL_FreeSurface(pTempSurface);
+    m_destinationRectangle.w = m_sourceRectangle.w = 128;
+    m_destinationRectangle.h = m_sourceRectangle.h = 72;
+
+    m_sourceRectangle.x = 128 * int((SDL_GetTicks() / 100 ) % 6);
+    m_destinationRectangle.x = 0;
+    SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);
+    SDL_DestroyTexture(m_pTexture);
+
+    SDL_Delay(10);
+
 }
