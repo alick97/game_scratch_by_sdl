@@ -1,10 +1,10 @@
-OBJS = Game.o
+OBJS = Game.o TextureManager.o
 SRCS = $(OBJS:.o=.cpp)
-CFLAGS = -g -I/usr/include/SDL2 -I. -lSDL2 -D_REENTRANT
+CFLAGS = -g -I/usr/include/SDL2 -I. -lSDL2 -lSDL2_image -D_REENTRANT
 
 all: out
 
-$(OBJS) : $(SRCS)
+$(filter %.o, $(OBJS)): %.o: %.cpp
 	g++ -c $(CFLAGS) -o $@ $<
 
 out: $(OBJS)
