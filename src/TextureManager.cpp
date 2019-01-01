@@ -13,7 +13,7 @@ SDL_Renderer* pRender) {
 
     SDL_FreeSurface(pTempSurface);
 
-    // everything went ok, add the texture to out list
+    // everything went ok, add the texture to our list
     if (NULL != pTexture) {
         m_textureMap[id] = pTexture;
         return true;

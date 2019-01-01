@@ -1,4 +1,4 @@
-OBJS = Game.o TextureManager.o
+OBJS = Game.o TextureManager.o SDLGameObject.o Player.o Enemy.o LoaderParams.o
 SRCS = $(OBJS:.o=.cpp)
 CFLAGS = -g -I/usr/include/SDL2 -I. -lSDL2 -lSDL2_image -D_REENTRANT
 
