@@ -35,7 +35,7 @@ int width, int height, bool fullscreen) {
         std::cout << "SDL init fail\n";
         return false; // SDL init fail
     }
-    
+
     // load texture
     TheTextureManager::Instance()->load("../assets/animate.bmp",
     "animate", m_pRenderer);
@@ -53,6 +53,8 @@ int width, int height, bool fullscreen) {
     // m_gameObject.push_back(m_enemy2);
     // m_gameObject.push_back(m_enemy3);
 
+    // init handle events system
+    TheInputHandler::Instance()->initialiseJoysticks(); 
     std::cout << "init success\n";
     m_bRunning = true; // everything inited successfully, start thi min loop
 
@@ -90,22 +92,12 @@ void Game::clean() {
     std::cout << "cleaning game\n";
     SDL_DestroyWindow(m_pWindow);
     SDL_DestroyRenderer(m_pRenderer);
+    TheInputHandler::Instance()->clean();
     SDL_Quit();
 }
 
 void Game::handleEvents() {
-    SDL_Event event;
-    if (SDL_PollEvent(&event)) {
-        switch (event.type) {
-            case SDL_QUIT: {
-                m_bRunning = false;
-                break;
-            }
-                
-            default:
-                break;
-        }
-    }
+    TheInputHandler::Instance()->update();
 }
 
 void Game::update() {
@@ -129,6 +121,10 @@ Game* Game::Instance() {
 
 SDL_Renderer* Game::getRender() const {
     return m_pRenderer;
+}
+
+void Game::quit() {
+    m_bRunning = false;
 }
 
 Game* Game::s_pInstance = NULL;

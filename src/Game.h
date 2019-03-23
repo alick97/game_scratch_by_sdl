@@ -2,6 +2,7 @@
 #define __Game__
 #include "TextureManager.h"
 #include "GameObject.h"
+#include "InputHandler.h"
 #include <SDL.h>
 #include <SDL_image.h>
 #include <iostream>
@@ -26,6 +27,7 @@ public:
 
     // a function to access the private running variable
     bool running() { return m_bRunning; }
+    void quit();
 private:
     Game() {};
     static Game* s_pInstance;

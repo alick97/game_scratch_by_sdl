@@ -3,6 +3,7 @@
 
 #include "SDLGameObject.h"
 #include "Game.h"
+#include "InputHandler.h"
 
 class Player : public SDLGameObject {
 public:
@@ -10,6 +11,8 @@ public:
     virtual void draw();
     virtual void update();
     virtual void clean();
+private:
+    void handleInput();
 };
 
 #endif /* defined(__PLAYER__) */
