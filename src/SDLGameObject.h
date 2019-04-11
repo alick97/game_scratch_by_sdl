@@ -10,6 +10,9 @@ public:
     virtual void draw();
     virtual void update();
     virtual void clean();
+    Vector2D& getPosition();
+    int getWidth();
+    int getHeight();
 protected:
     std::string m_textureID;
 

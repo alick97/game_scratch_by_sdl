@@ -9,6 +9,9 @@
 #include <vector>
 #include "Player.h"
 #include "Enemy.h"
+#include "GameStateMachine.h"
+#include "MenuState.h"
+#include "PlayState.h"
 
 class Game {
 public:
@@ -28,6 +31,7 @@ public:
     // a function to access the private running variable
     bool running() { return m_bRunning; }
     void quit();
+    GameStateMachine* getStateMachine();
 private:
     Game() {};
     static Game* s_pInstance;
@@ -43,6 +47,7 @@ private:
     // game object
     // GameObject m_go;
     // Player m_player;
+    GameStateMachine *m_pGameStateMachine;
     std::vector<GameObject*> m_gameObject;
     // game object
     GameObject* m_player;

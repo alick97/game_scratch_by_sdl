@@ -246,5 +246,11 @@ bool InputHandler::isKeyDown(SDL_Scancode key) {
     return false;
 }
 
+void InputHandler::reset() {
+    for (int i = 0; i < m_mouseButtonStates.size(); ++i) {
+        m_mouseButtonStates[i] = false;
+    }
+}
+
 InputHandler* InputHandler::s_pInstance = NULL;
 bool InputHandler::m_bJoysticksInitialised = false;

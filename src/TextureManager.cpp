@@ -5,6 +5,8 @@ SDL_Renderer* pRender) {
     SDL_Surface* pTempSurface = IMG_Load(fileName.c_str());
 
     if (NULL == pTempSurface) {
+        std::cerr<<"err: src: " << __FILE__ << " function: " << __FUNCTION__ << " file: "
+        << fileName << " not exist\n";
         return false;
     }
 
@@ -60,6 +62,10 @@ TextureManager* TextureManager::Instance() {
     }
 
     return s_pInstance;
+}
+
+void  TextureManager::clearFromTextureMap(std::string id) {
+    m_textureMap.erase(id);
 }
 
 TextureManager* TextureManager::s_pInstance = NULL;

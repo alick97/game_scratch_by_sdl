@@ -43,18 +43,22 @@ int width, int height, bool fullscreen) {
     // load game object
     // m_go.load(100, 100, 128, 82, "animate");
     // m_player.load(300, 300, 128, 82, "animate");
-    m_player = new Player(new LoaderParams(100, 100, 128, 82, "animate"));
-    m_enemy1 = new Enemy(new LoaderParams(300, 300, 128, 82, "animate"));
+    // m_player = new Player(new LoaderParams(100, 100, 128, 82, "animate"));
+    // m_enemy1 = new Enemy(new LoaderParams(300, 300, 128, 82, "animate"));
     // m_enemy2 = new Enemy();
     // m_enemy3 = new Enemy();
 
-    m_gameObject.push_back(m_player);
-    m_gameObject.push_back(m_enemy1);
+    // m_gameObject.push_back(m_player);
+    // m_gameObject.push_back(m_enemy1);
     // m_gameObject.push_back(m_enemy2);
     // m_gameObject.push_back(m_enemy3);
 
     // init handle events system
-    TheInputHandler::Instance()->initialiseJoysticks(); 
+    TheInputHandler::Instance()->initialiseJoysticks();
+    // init stat machine
+    m_pGameStateMachine = new GameStateMachine();
+    m_pGameStateMachine->changeState(new MenuState());
+    
     std::cout << "init success\n";
     m_bRunning = true; // everything inited successfully, start thi min loop
 
@@ -71,18 +75,7 @@ void Game::draw() {
 void Game::render() {
     SDL_RenderClear(m_pRenderer); // clear the render to draw color
 
-    // TheTextureManager::Instance()->draw("animate", 100, 100, 128, 82, m_pRenderer);
-
-    // TheTextureManager::Instance()->drawFrame("animate", 0, 0, 128, 82,
-    // 1, m_currentFrame, m_pRenderer);
-
-    // m_go.draw(m_pRenderer);
-    // m_player.draw(m_pRenderer);
-
-    for(std::vector<GameObject*>::size_type i=0; i < 
-    m_gameObject.size(); i++) {
-        m_gameObject[i]->draw();
-    }
+    m_pGameStateMachine->render();
 
     SDL_RenderPresent(m_pRenderer); // draw to the screen
 
@@ -98,16 +91,14 @@ void Game::clean() {
 
 void Game::handleEvents() {
     TheInputHandler::Instance()->update();
+
+    if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RETURN)) {
+        m_pGameStateMachine->changeState(new PlayState());
+    }
 }
 
 void Game::update() {
-    // m_currentFrame = int((SDL_GetTicks() / 100) % 6);
-    // m_go.update();
-    // m_player.update();
-    for(std::vector<GameObject*>::size_type i=0; i <
-    m_gameObject.size(); i++) {
-        m_gameObject[i]->update();
-    }
+    m_pGameStateMachine->update();
 }
 
 Game* Game::Instance() {
@@ -126,5 +117,10 @@ SDL_Renderer* Game::getRender() const {
 void Game::quit() {
     m_bRunning = false;
 }
+
+GameStateMachine* Game::getStateMachine() {
+    return m_pGameStateMachine;
+}
+
 
 Game* Game::s_pInstance = NULL;
