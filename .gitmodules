@@ -1,0 +1,3 @@
+[submodule "extern/tingxml2"]
+	path = extern/tingxml2
+	url = https://github.com/leethomason/tinyxml2.git
