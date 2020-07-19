@@ -1,7 +1,8 @@
 #include "InputHandler.h"
 
 InputHandler::InputHandler()
-    :m_mousePosition(new Vector2D(0, 0)) {
+    :m_mousePosition(new Vector2D(0, 0)),
+    m_keystates(SDL_GetKeyboardState(0)) {
     for(int i=0; i < 3; i++) {
         m_mouseButtonStates.push_back(false);
     }

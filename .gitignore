@@ -1,9 +1,9 @@
 .vscode
-SDL2-2.0.8.tar.gz
-SDL2-2.0.8/
 data/
 lib/
 *.o
 *.so
 *.a
 
+build
+core

@@ -29,22 +29,9 @@ void PlayState::render() {
 }
 
 bool PlayState::onEnter() {
-    if (!TheTextureManager::Instance()->load("../assets/helicopter.png",
-    "helicopter", TheGame::Instance()->getRender())) {
-        return false;
-    }
-
-    if (!TheTextureManager::Instance()->load("../assets/helicopter2.png",
-    "helicopter2", TheGame::Instance()->getRender())) {
-        return false;
-    }
-
-    GameObject *player = new Player(new LoaderParams(100, 100, 150, 64,
-    "helicopter"));
-    GameObject *enemy = new Enemy(new LoaderParams(350, 100, 150, 64,
-    "helicopter2"));
-    m_gameObjects.push_back(player);
-    m_gameObjects.push_back(enemy);
+    // Parse the state.
+    StateParser stateParser;
+    stateParser.parseState("assets/test.xml", s_playID, &m_gameObjects, &m_textureIDList);
 
     std::cout << "entering PlayStat\n";
     return true;
@@ -55,7 +42,10 @@ bool PlayState::onExit() {
         m_gameObjects[i]->clean();
     }
     m_gameObjects.clear();
-    TheTextureManager::Instance()->clearFromTextureMap("helicopter");
+
+    for (const auto &textureID : m_textureIDList) {
+        TheTextureManager::Instance()->clearFromTextureMap(textureID);
+    }
 
     std::cout << "exiting PlayStat\n";
     return true;
@@ -83,10 +73,10 @@ bool PlayState::checkCollision(SDLGameObject *p1, SDLGameObject *p2) {
     bottomB = p2->getPosition().getY() + p2->getHeight();
 
     // if any of the sides from A are outside of B
-    if ( bottomA <= topB ) {return false;}
-    if ( topA >= bottomB) {return false;}
-    if ( rightA <= leftB) {return false;}
-    if ( leftA >= rightB ) {return false;}
+    if (bottomA <= topB) { return false; }
+    if (topA >= bottomB) { return false; }
+    if (rightA <= leftB) { return false; }
+    if (leftA >= rightB) { return false; }
     
     return true;
 }

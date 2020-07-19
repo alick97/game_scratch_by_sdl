@@ -1,8 +1,10 @@
 #include "Enemy.h"
 
+Enemy::Enemy(): SDLGameObject() {}
+
 Enemy::Enemy(const LoaderParams* pParams, int numFrames) : 
-    SDLGameObject(pParams),
-    m_numFrames(numFrames) {
+    SDLGameObject(pParams) {
+        m_numFrames = numFrames;
         m_velocity.setY(2);
         m_velocity.setX(0.001);
     }
@@ -16,7 +18,7 @@ void Enemy::update() {
 
     if (m_position.getY() < 0) {
         m_velocity.setY(2);
-    } else if (m_position.getY() > 400) {
+    } else if (m_position.getY() > 300) {
         m_velocity.setY(-2);
     }
 
@@ -24,3 +26,13 @@ void Enemy::update() {
 }
 
 void Enemy::clean() {}
+
+
+void Enemy::load(const LoaderParams *pParams) {
+    SDLGameObject::load(pParams);
+    m_velocity.setY(2);
+}
+
+GameObject* EnemyCreator::createGameObject() const {
+    return new Enemy();
+}

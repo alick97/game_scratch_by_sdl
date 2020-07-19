@@ -1,27 +1,28 @@
 #ifndef __PLAYSTATE__
 #define __PLAYSTATE__
+#include <iostream>
+#include <vector>
+#include "Game.h"
 #include "GameState.h"
 #include "GameObject.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "PauseState.h"
 #include "GameOverState.h"
-#include <iostream>
-#include <vector>
 
 class PlayState: public GameState {
 public:
-    virtual void update();
-    virtual void render();
+    void update() override;
+    void render() override;
 
-    virtual bool onEnter();
-    virtual bool onExit();
+    bool onEnter() override;
+    bool onExit() override;
 
-    virtual std::string getStateID() const;
+    std::string getStateID() const override;
 private:
     static const std::string s_playID;
     std::vector<GameObject*> m_gameObjects;
     bool checkCollision(SDLGameObject *p1, SDLGameObject *p2);
 };
-#include "Game.h"
+// #include "Game.h"
 #endif

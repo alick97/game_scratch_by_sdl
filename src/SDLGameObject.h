@@ -6,10 +6,12 @@
 
 class SDLGameObject : public GameObject {
 public:
+    SDLGameObject();
     SDLGameObject(const LoaderParams* pParams);
     virtual void draw();
     virtual void update();
     virtual void clean();
+    virtual void load(const LoaderParams *pParams) override;
     Vector2D& getPosition();
     int getWidth();
     int getHeight();
@@ -18,6 +20,7 @@ protected:
 
     int m_currentFrame;
     int m_currentRow;
+    int m_numFrames;
 
     Vector2D m_position;
     Vector2D m_velocity;
@@ -27,5 +30,4 @@ protected:
     int m_height;
 };
 
-#include "Game.h"
 #endif /* defined(__SDLGAMEOBJECT__) */

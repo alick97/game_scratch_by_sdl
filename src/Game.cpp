@@ -1,4 +1,6 @@
 #include "Game.h"
+#include "MainMenuState.h"
+#include "PlayState.h"
 
 bool Game::init(const char* title, int xpos, int ypos,
 int width, int height, bool fullscreen) {
@@ -36,28 +38,17 @@ int width, int height, bool fullscreen) {
         return false; // SDL init fail
     }
 
-    // load texture
-    TheTextureManager::Instance()->load("../assets/animate.bmp",
-    "animate", m_pRenderer);
-
-    // load game object
-    // m_go.load(100, 100, 128, 82, "animate");
-    // m_player.load(300, 300, 128, 82, "animate");
-    // m_player = new Player(new LoaderParams(100, 100, 128, 82, "animate"));
-    // m_enemy1 = new Enemy(new LoaderParams(300, 300, 128, 82, "animate"));
-    // m_enemy2 = new Enemy();
-    // m_enemy3 = new Enemy();
-
-    // m_gameObject.push_back(m_player);
-    // m_gameObject.push_back(m_enemy1);
-    // m_gameObject.push_back(m_enemy2);
-    // m_gameObject.push_back(m_enemy3);
+    // Register GameObject creater to GameObjectFactory.
+    TheGameObjectFactory::Instance()->registerType("MenuButton", new MenuButtonCreator());
+    TheGameObjectFactory::Instance()->registerType("Player", new PlayerCreator());
+    TheGameObjectFactory::Instance()->registerType("Enemy", new EnemyCreator());
+    TheGameObjectFactory::Instance()->registerType("AnimatedGraphic", new AnimateGraphicCreator());
 
     // init handle events system
     TheInputHandler::Instance()->initialiseJoysticks();
     // init stat machine
     m_pGameStateMachine = new GameStateMachine();
-    m_pGameStateMachine->changeState(new MenuState());
+    m_pGameStateMachine->changeState(new MainMenuState());
     
     std::cout << "init success\n";
     m_bRunning = true; // everything inited successfully, start thi min loop

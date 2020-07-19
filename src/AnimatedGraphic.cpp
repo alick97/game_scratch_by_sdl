@@ -1,8 +1,9 @@
 #include "AnimatedGraphic.h"
 
+AnimateGraphic::AnimateGraphic(): SDLGameObject(), m_animSpeed(0) {}
+
 AnimateGraphic::AnimateGraphic(const LoaderParams* pParams, int animSpeed, int numFrames):
     SDLGameObject(pParams),
-    m_numFrames(numFrames),
     m_animSpeed(animSpeed) {}
 
 void AnimateGraphic::draw() {
@@ -16,4 +17,13 @@ void AnimateGraphic::update() {
 
 void AnimateGraphic::clean() {
     SDLGameObject:clean();
+}
+
+void AnimateGraphic::load(const LoaderParams *pParams) {
+    SDLGameObject::load(pParams);
+    m_animSpeed = pParams->getAnimSpeed();
+}
+
+GameObject *AnimateGraphicCreator::createGameObject() const {
+    return new AnimateGraphic();
 }
