@@ -1,5 +1,9 @@
 #include "Player.h"
 
+Player::Player(): SDLGameObject() {
+
+}
+
 Player::Player(const LoaderParams* pParams) : 
     SDLGameObject(pParams) {
         m_currentFrame = 0;
@@ -74,4 +78,12 @@ void Player::handleInput() {
     if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_DOWN)) {
         m_velocity.setY(2);
     }
+}
+
+GameObject* PlayerCreator::createGameObject() const {
+    return new Player();
+}
+
+void Player::load(const LoaderParams *pParams) {
+    SDLGameObject::load(pParams);
 }

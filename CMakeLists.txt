@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.17)
 project(Game VERSION 1.0)
 
 set(CMAKE_DEBUG_POSTFIX debug)
+set(CMAKE_BUILD_TYPE debug)
 
 # specify the C++ standard.
 add_library(game_compiler_flags INTERFACE)
@@ -33,8 +34,8 @@ find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
 
 # tinyxml2 lib.
-add_subdirectory(external/tingxml2)
-include_directories(${tingxml2_INCLUDE_DIRS})
+add_subdirectory(external/tinyxml2)
+include_directories(${tinyxml2_INCLUDE_DIRS})
 
 # add the executable.
 file(GLOB SOURCE_FILES src/*.cpp)

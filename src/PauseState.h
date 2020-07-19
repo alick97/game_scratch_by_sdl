@@ -1,21 +1,20 @@
 #ifndef __PAUSESTATE_H__
 #define __PAUSESTATE_H__
-#include "GameState.h"
-#include "GameObject.h"
-#include "Game.h"
-
 #include <vector>
+#include "MainMenuState.h"
 
-class PauseState: public GameState {
+
+class PauseState: public MenuState {
 public:
-    virtual void update();
-    virtual void render();
+    void update() override;
+    void render() override;
 
-    virtual bool onEnter();
-    virtual bool onExit();
+    bool onEnter() override;
+    bool onExit() override;
 
-    virtual std::string getStateID() const;
+    std::string getStateID() const override;
 private:
+    void setCallbacks(const std::vector<Callback> &callbacks) override;
     static void s_pauseToMain();
     static void s_resumePlay();
 
@@ -24,4 +23,5 @@ private:
     std::vector<GameObject*> m_gameObjects;
 };
 
+// #include "Game.h"
 #endif

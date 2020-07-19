@@ -16,6 +16,19 @@ int LoaderParams::getHeight() const {
     return m_height;
 }
 
+int LoaderParams::getNumFrames() const {
+    return m_numFrames;
+}
+
+int LoaderParams::getCallbackID() const {
+    return m_callbackID;
+}
+
+int LoaderParams::getAnimSpeed() const {
+    return m_animSpeed;
+}
+
+
 std::string LoaderParams::getTextureID() const {
     return m_textureID;
 }
