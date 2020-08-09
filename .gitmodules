@@ -1,3 +1,11 @@
 [submodule "extern/tingxml2"]
 	path = external/tinyxml2
 	url = https://github.com/leethomason/tinyxml2.git
+[submodule "external/cpp-base64"]
+	path = external/cpp-base64
+	url = https://github.com/ReneNyffenegger/cpp-base64.git
+	branch = master
+[submodule "external/zlip"]
+	path = external/zlib
+	url = https://github.com/madler/zlib.git
+	branch = master

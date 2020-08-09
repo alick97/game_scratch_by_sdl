@@ -37,12 +37,26 @@ find_package(SDL2_image REQUIRED)
 add_subdirectory(external/tinyxml2)
 include_directories(${tinyxml2_INCLUDE_DIRS})
 
+# base64 lib.
+add_library(base64 external/cpp-base64/base64.cpp)
+# state that anybody linking to us needs to include the current source dir
+# to find base64.h, while we don't.
+target_include_directories(base64
+                           INTERFACE
+                           $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/external/cpp-base64>
+                           $<INSTALL_INTERFACE:include>
+                           )
+
+# zip lib.
+add_subdirectory(external/zlib)
+include_directories(${zlib_INCLUDE_DIRS})
+
 # add the executable.
 file(GLOB SOURCE_FILES src/*.cpp)
 add_executable(Game ${SOURCE_FILES})
 set_target_properties(Game PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
 
-target_link_libraries(Game PRIVATE ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} tinyxml2 game_compiler_flags) 
+target_link_libraries(Game PRIVATE ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} zlib tinyxml2 base64 game_compiler_flags) 
 target_include_directories(Game PUBLIC
                            ${SDL2_INCLUDE_DIRS}
                            ${SDL2_IMAGE_INCLUDE_DIRS})
