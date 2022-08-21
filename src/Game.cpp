@@ -5,6 +5,9 @@
 bool Game::init(const char* title, int xpos, int ypos,
 int width, int height, bool fullscreen) {
     int flags = 0;
+    
+    m_gameWidth = width;
+    m_gameHeight = height;
 
     if (fullscreen) {
         flags = SDL_WINDOW_FULLSCREEN;
@@ -113,5 +116,11 @@ GameStateMachine* Game::getStateMachine() {
     return m_pGameStateMachine;
 }
 
+int Game::getGameWidth() const {
+    return m_gameWidth;
+}
+int Game::getGameHeight() const {
+    return m_gameHeight;
+}
 
 Game* Game::s_pInstance = NULL;

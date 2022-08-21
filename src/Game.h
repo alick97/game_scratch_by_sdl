@@ -30,6 +30,9 @@ public:
     bool running() { return m_bRunning; }
     void quit();
     GameStateMachine* getStateMachine();
+    int getGameWidth() const;
+    int getGameHeight() const;
+
 private:
     Game() {};
     static Game* s_pInstance;
@@ -39,6 +42,9 @@ private:
 
     SDL_Texture* m_pTexture;
     int m_currentFrame;
+
+    int m_gameWidth;
+    int m_gameHeight;
 
 
 
