@@ -1,16 +1,17 @@
 #include "TileLayer.h"
 
 TileLayer::TileLayer(int tileSize, const std::vector<Tileset> &tilesets)
-    :m_tileSize(tileSize),
-    m_tilesets(tilesets),
-    m_position(0, 0),
-    m_velocity(0, 0)
+    : m_tileSize(tileSize),
+      m_tilesets(tilesets),
+      m_position(0, 0),
+      m_velocity(0, 0)
 {
     m_numColumns = TheGame::Instance()->getGameWidth() / m_tileSize;
     m_numRows = TheGame::Instance()->getGameHeight() / m_tileSize;
 }
 
-void TileLayer::update() {
+void TileLayer::update()
+{
     m_position += m_velocity;
     // m_velocity.setX(1);
 }
@@ -37,11 +38,11 @@ void TileLayer::render()
             Tileset tileset = getTilesetByID(id);
             id--;
 
-            TheTextureManager::Instance() -> drawTile(
+            TheTextureManager::Instance()->drawTile(
                 tileset.name, tileset.margin, tileset.spacing,
                 (j * m_tileSize) - x2, (i * m_tileSize) - y2, m_tileSize, m_tileSize,
                 (id - (tileset.firstGridID - 1)) / tileset.numColumns,
-                (id - (tileset.firstGridID - 1)) % m_numColumns,
+                (id - (tileset.firstGridID - 1)) % tileset.numColumns,
                 TheGame::Instance()->getRender());
         }
     }

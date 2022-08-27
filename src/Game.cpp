@@ -24,7 +24,7 @@ int width, int height, bool fullscreen) {
 
             if (m_pRenderer != 0) { // renderer init success
                 std::cout<< "renderer creation success\n";
-                SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 100, 255); 
+                SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255); 
             }
             else {
                 std::cout << "renderer init fail\n";

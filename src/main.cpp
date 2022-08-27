@@ -7,7 +7,7 @@ int main(int argc, char* argv[]) {
     u_int32_t frameStart, frameTime;
 
     std::cout << "game init attempt...\n";
-    if(TheGame::Instance()->init("Chapter 6: Data-driven Design.", 100, 100, 640, 480, false)) {
+    if(TheGame::Instance()->init("Chapter 7: Creating and Displaying Tile Maps.", 100, 100, 640, 480, false)) {
         std::cout << "game init success!\n";
         while(TheGame::Instance()->running()) {
             frameStart = SDL_GetTicks();
