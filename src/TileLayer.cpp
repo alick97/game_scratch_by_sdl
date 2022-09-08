@@ -13,7 +13,7 @@ TileLayer::TileLayer(int tileSize, const std::vector<Tileset> &tilesets)
 void TileLayer::update()
 {
     m_position += m_velocity;
-    m_velocity.setX(1);
+    // m_velocity.setX(1);
 
     if (m_position.getX() > TheGame::Instance()->getGameWidth()) {
         m_position.setX(TheGame::Instance()->getGameWidth());
