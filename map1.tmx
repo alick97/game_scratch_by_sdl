@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.1" orientation="orthogonal" renderorder="right-down" width="20" height="15" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.9" tiledversion="1.9.1" orientation="orthogonal" renderorder="right-down" width="60" height="15" tilewidth="32" tileheight="32" infinite="0" nextlayerid="2" nextobjectid="1">
  <tileset firstgid="1" name="blocks1" tilewidth="32" tileheight="32" spacing="2" margin="2" tilecount="198" columns="18">
   <image source="assets/blocks1.png" width="640" height="400"/>
  </tileset>
  <tileset firstgid="199" name="blocks2" tilewidth="32" tileheight="32" spacing="2" margin="2" tilecount="198" columns="18">
   <image source="assets/blocks2.png" width="640" height="400"/>
  </tileset>
- <layer id="1" name="Tile Layer 1" width="20" height="15">
+ <layer id="1" name="Tile Layer 1" width="60" height="15">
   <data encoding="base64" compression="zlib">
-   eJxjYBjaIBmIU4A4lQy9cUAcD8QJ1HQQESARiJPobOcoGFxAAoglgVgKiKWBWAaIZSlQxwfEzEDMAsSsQMwGxLzDUB0ADD8FWQ==
+   eJztkUsKgDAMBQU/O137vYCH8u/9r+C4F6y1KRUzMLuQ5CVRpNiy4oa7UP8ZF+E9XGUw7WOayQUDjjh5mmfC3Z183OfpjLt6nz+VQGr/r99FURTFhhIrrLHBFrsXdaFTYIwJpphhblnXB6h03pC4yvyHvKcHLcMWlg==
   </data>
  </layer>
 </map>
