@@ -33,6 +33,9 @@ find_package(SDL2 REQUIRED)
 # Find and link SDL2_image
 find_package(SDL2_image REQUIRED)
 
+# Find and link SDL_mixer
+find_package(SDL2_mixer REQUIRED)
+
 # tinyxml2 lib.
 add_subdirectory(external/tinyxml2)
 include_directories(${tinyxml2_INCLUDE_DIRS})
@@ -56,7 +59,7 @@ file(GLOB SOURCE_FILES src/*.cpp)
 add_executable(Game ${SOURCE_FILES})
 set_target_properties(Game PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
 
-target_link_libraries(Game PRIVATE ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} zlib tinyxml2 base64 game_compiler_flags) 
+target_link_libraries(Game PRIVATE ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES} ${SDL2_MIXER_LIBRARIES} zlib tinyxml2 base64 game_compiler_flags) 
 target_include_directories(Game PUBLIC
                            ${SDL2_INCLUDE_DIRS}
                            ${SDL2_IMAGE_INCLUDE_DIRS})
