@@ -12,6 +12,12 @@ sudo apt install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev
 ### Document
 - docs/SDL Game Development.pdf
 
+#### Install Dependent Repository
+```
+git submodule init
+git submodule update
+```
+
 ### Compile
 ```
 mkdir build

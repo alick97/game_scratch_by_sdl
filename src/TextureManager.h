@@ -16,6 +16,7 @@ public:
     // drawframe
     void drawFrame(const std::string& id, int x, int y, int width, int height,
     int currentRow, int currentFrame, SDL_Renderer* pRenderer,
+    double angle, int alpha,
     SDL_RendererFlip flip = SDL_FLIP_NONE);
 
     // clear texture

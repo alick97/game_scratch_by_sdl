@@ -123,4 +123,30 @@ int Game::getGameHeight() const {
     return m_gameHeight;
 }
 
+float Game::getScrollSpeed() const {
+    return m_scrollSpeed;
+}
+
+int Game::getPlayerLives() const {
+    return m_playerLives;
+}
+
+void Game::setPlayerLives(int lives) {
+    m_playerLives = lives;
+}
+
+bool Game::getLevelComplete() {
+    return m_bLevelComplete;
+}
+
+void Game::setCurrentLevel(int level) {
+    m_currentLevel = level;
+    m_pGameStateMachine->changeState(new BetweenLevelState());
+    m_bLevelComplete = false;
+}
+int Game::getCurrentLevel() {
+    return m_currentLevel;
+}
+
+
 Game* Game::s_pInstance = NULL;

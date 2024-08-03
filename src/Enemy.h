@@ -1,11 +1,11 @@
 #ifndef __ENEMY__
 #define __ENEMY__
 
-#include "SDLGameObject.h"
+#include "ShooterObject.h"
 #include "GameObjectFactory.h"
 #include "Game.h"
 
-class Enemy: public SDLGameObject {
+class Enemy: public ShooterObject {
 public:
     Enemy();
     Enemy(const LoaderParams* pParams, int numFrames=6);

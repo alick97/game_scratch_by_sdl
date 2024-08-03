@@ -32,6 +32,13 @@ public:
     GameStateMachine* getStateMachine();
     int getGameWidth() const;
     int getGameHeight() const;
+    int getScrollSpeed() const;
+    int getPlayerLives() const;
+    void setPlayerLives(int lives);
+    
+    bool getLevelComplete();
+    void setCurrentLevel(int level);
+    int getCurrentLevel();
 
 private:
     Game() {};
@@ -45,8 +52,10 @@ private:
 
     int m_gameWidth;
     int m_gameHeight;
-
-
+    float m_scrollSpeed;
+    int m_playerLives;
+    int m_currentLevel;
+    bool m_bLevelComplete;
 
     // game object
     // GameObject m_go;
