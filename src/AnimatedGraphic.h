@@ -1,17 +1,19 @@
 #ifndef __ANIMATEDGRAPHIC_H__
 #define __ANIMATEDGRAPHIC_H__
-#include "SDLGameObject.h"
+#include "GameObject.h"
 #include "GameObjectFactory.h"
 #include "Game.h"
 
-class AnimateGraphic: public SDLGameObject {
+class AnimateGraphic: public GameObject {
 public:
     AnimateGraphic();
     AnimateGraphic(const LoaderParams* pParams, int animSpeed, int numFrames=1);
     void draw() override;
     void update() override;
     void clean() override;
-    void load(const LoaderParams *pParams) override;
+    void load(std::unique_ptr<LoaderParams> const &pParams);
+    void collision() {};
+    std::string type() { return "GameObject"; };
 private:
     int m_animSpeed;
 };

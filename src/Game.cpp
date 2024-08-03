@@ -141,7 +141,7 @@ bool Game::getLevelComplete() {
 
 void Game::setCurrentLevel(int level) {
     m_currentLevel = level;
-    m_pGameStateMachine->changeState(new BetweenLevelState());
+    // m_pGameStateMachine->changeState(new BetweenLevelState());
     m_bLevelComplete = false;
 }
 int Game::getCurrentLevel() {

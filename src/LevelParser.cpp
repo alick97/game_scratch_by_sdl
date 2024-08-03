@@ -195,7 +195,7 @@ void LevelParser::parseObjectLayer(tinyxml2::XMLElement *pObjectElement, std::ve
                     }
                 }
             }
-            pGameObject->load(new LoaderParams(x, y, width, height, textureID,
+            pGameObject->load(std::make_unique<LoaderParams>(x, y, width, height, textureID,
                                                numFrames, callbackID, animSpeed));
             pObjectLayer->getGameObjects()->push_back(pGameObject);
         }

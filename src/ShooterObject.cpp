@@ -12,7 +12,7 @@ ShooterObject::ShooterObject(const LoaderParams* pParams)
 }
 
 
-void ShooterObject::load(const LoaderParams *pParams) {
+void ShooterObject::load(std::unique_ptr<LoaderParams> const &pParams) {
     m_position = Vector2D(pParams->getX(), pParams->getY());
     m_velocity = Vector2D(0, 0);
     m_acceleration = Vector2D(0, 0);

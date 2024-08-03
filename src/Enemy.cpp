@@ -1,16 +1,16 @@
 #include "Enemy.h"
 
-Enemy::Enemy(): SDLGameObject() {}
+Enemy::Enemy(): ShooterObject() {}
 
 Enemy::Enemy(const LoaderParams* pParams, int numFrames) : 
-    SDLGameObject(pParams) {
+    ShooterObject(pParams) {
         m_numFrames = numFrames;
         m_velocity.setY(2);
         m_velocity.setX(0.001);
     }
 
 void Enemy::draw() {
-    SDLGameObject::draw();
+    ShooterObject::draw();
 }
 
 void Enemy::update() {
@@ -22,14 +22,14 @@ void Enemy::update() {
         m_velocity.setY(-2);
     }
 
-    SDLGameObject::update();
+    ShooterObject::update();
 }
 
 void Enemy::clean() {}
 
 
 void Enemy::load(const LoaderParams *pParams) {
-    SDLGameObject::load(pParams);
+    ShooterObject::load(pParams);
     m_velocity.setY(2);
 }
 

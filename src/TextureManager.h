@@ -27,6 +27,8 @@ public:
         std::string id, int margin, int spacing,
         int x, int y, int width, int height,
         int currentRow, int currentFrame, SDL_Renderer *pRenderer);
+    
+    std::map<std::string, SDL_Texture*> getTextureMap() const { return m_textureMap; };
 
     static TextureManager* Instance();
 private:

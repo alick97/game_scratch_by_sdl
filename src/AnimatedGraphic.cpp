@@ -1,13 +1,13 @@
 #include "AnimatedGraphic.h"
 
-AnimateGraphic::AnimateGraphic(): SDLGameObject(), m_animSpeed(0) {}
+AnimateGraphic::AnimateGraphic(): GameObject(), m_animSpeed(0) {}
 
 AnimateGraphic::AnimateGraphic(const LoaderParams* pParams, int animSpeed, int numFrames):
-    SDLGameObject(pParams),
+    GameObject(pParams),
     m_animSpeed(animSpeed) {}
 
 void AnimateGraphic::draw() {
-    SDLGameObject::draw();
+    GameObject::draw();
 }
 
 void AnimateGraphic::update() {
@@ -16,11 +16,11 @@ void AnimateGraphic::update() {
 }
 
 void AnimateGraphic::clean() {
-    SDLGameObject:clean();
+    GameObject:clean();
 }
 
-void AnimateGraphic::load(const LoaderParams *pParams) {
-    SDLGameObject::load(pParams);
+void AnimateGraphic::load(std::unique_ptr<LoaderParams> const &pParams) {
+    GameObject::load(pParams);
     m_animSpeed = pParams->getAnimSpeed();
 }
 

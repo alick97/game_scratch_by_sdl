@@ -20,7 +20,7 @@ public:
     // get the type of the object.
     virtual std::string type() = 0;
     // getters for common variables.
-    Vector2D& getPosion() { return m_position; }
+    Vector2D& getPosition() { return m_position; }
     int getWidth() { return m_width; }
     int getHeight() { return m_height; }
     // scroll along with tile map.
@@ -72,7 +72,7 @@ protected:
     m_bDead(false),
     m_bDying(false),
     m_angle(0),
-    m_alpha(255),
+    m_alpha(255)
     {}
 };
 
