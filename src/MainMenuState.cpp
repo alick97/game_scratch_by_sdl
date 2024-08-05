@@ -17,7 +17,7 @@ void MainMenuState::render() {
 bool MainMenuState::onEnter() {
     // Parse the state.
     StateParser stateParser;
-    stateParser.parseState("assets/test.xml", s_menuID, &m_gameObjects, &m_textureIDList);
+    stateParser.parseState("assets/attack.xml", s_menuID, &m_gameObjects, &m_textureIDList);
     m_callbacks.push_back(0);  // Pushback 0 callbackID start from 1.
     m_callbacks.push_back(s_menuToPlay);
     m_callbacks.push_back(s_exitFromMenu);
@@ -36,6 +36,8 @@ bool MainMenuState::onExit() {
     m_gameObjects.clear();
     TheTextureManager::Instance()->clearFromTextureMap("playbutton");
     TheTextureManager::Instance()->clearFromTextureMap("exitbutton");
+    // reset the input handler.
+    TheInputHandler::Instance()->reset();
 
     std::cout << "exiting MainMenuState\n";
     return true;

@@ -2,9 +2,10 @@
 #define __SCROLLING_BACKGROUND_H__
 #include <memory>
 #include "LoaderParams.h"
-#include ""
+#include "ShooterObject.h" 
+#include "GameObjectFactory.h"
 
-class ScrollingBackground: GameObject {
+class ScrollingBackground: public ShooterObject {
 public:
     ScrollingBackground();
     void draw();
@@ -29,4 +30,12 @@ private:
     int m_srcRect1Width;
     int m_srcRect2Width;
 };
+
+class ScrollingBackgroundCreator : public BaseCreator {
+public:
+    virtual GameObject* createGameObject() const {
+        return new ScrollingBackground();
+    }
+};
+
 #endif

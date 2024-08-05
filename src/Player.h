@@ -9,11 +9,12 @@
 class Player : public ShooterObject {
 public:
     Player();
-    Player(const LoaderParams* pParams);
-    virtual void load(const LoaderParams *pParams) override;
-    virtual void draw();
-    virtual void update();
-    virtual void clean();
+    void load(std::unique_ptr<LoaderParams>  const &pParams);
+    void draw();
+    void update();
+    void clean();
+    void collision();
+    std::string type();
 private:
     // bring the player back if there are lives left.
     void ressurect();

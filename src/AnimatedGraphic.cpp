@@ -1,13 +1,9 @@
 #include "AnimatedGraphic.h"
 
-AnimateGraphic::AnimateGraphic(): GameObject(), m_animSpeed(0) {}
-
-AnimateGraphic::AnimateGraphic(const LoaderParams* pParams, int animSpeed, int numFrames):
-    GameObject(pParams),
-    m_animSpeed(animSpeed) {}
+AnimateGraphic::AnimateGraphic(): ShooterObject(), m_animSpeed(0) {}
 
 void AnimateGraphic::draw() {
-    GameObject::draw();
+    ShooterObject::draw();
 }
 
 void AnimateGraphic::update() {
@@ -16,11 +12,11 @@ void AnimateGraphic::update() {
 }
 
 void AnimateGraphic::clean() {
-    GameObject:clean();
+    ShooterObject:clean();
 }
 
 void AnimateGraphic::load(std::unique_ptr<LoaderParams> const &pParams) {
-    GameObject::load(pParams);
+    ShooterObject::load(pParams);
     m_animSpeed = pParams->getAnimSpeed();
 }
 

@@ -1,13 +1,9 @@
 #include "Player.h"
 
-Player::Player(): ShooterObject() {
-
-}
-
-Player::Player(const LoaderParams* pParams) : 
-    ShooterObject(pParams) {
-        m_currentFrame = 0;
-    }
+Player::Player(): ShooterObject(),
+    m_invulnerable(false),
+    m_invulnerableTime(200),
+    m_invulnerableCounter(0) {}
 
 void Player::draw() {
     ShooterObject::draw();
@@ -110,7 +106,23 @@ GameObject* PlayerCreator::createGameObject() const {
     return new Player();
 }
 
-void Player::load(const LoaderParams *pParams) {
+void Player::collision() {
+    // if the player is not invulnerable then set to dying and change values for death animation tile sheet.
+    if(!m_invulnerable && !TheGame::Instance()->getLevelComplete()) {
+        m_textureID = "largeexplosion";
+        m_currentFrame = 0;
+        m_numFrames = 9;
+        m_width = 60;
+        m_height = 60;
+        m_bDying = true;
+    } 
+}
+
+std::string Player::type() {
+    return "Player";
+}
+
+void Player::load(std::unique_ptr<LoaderParams>  const &pParams) {
     ShooterObject::load(pParams);
 }
 

@@ -1,8 +1,8 @@
+#ifndef __SOUND_MANAGER_H__
+#define __SOUND_MANAGER_H__
 #include <string>
 #include <map>
 #include <SDL_mixer.h>
-#ifndef __SOUND_MANAGER_H__
-#define __SOUND_MaNAGER_H__
 
 enum sound_type {
   SOUND_MUSIC = 0,

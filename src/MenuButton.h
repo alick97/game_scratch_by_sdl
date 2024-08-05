@@ -2,20 +2,22 @@
 #define __MENUBUTTON_H__
 
 #include "cassert"
-#include "SDLGameObject.h"
+#include "ShooterObject.h"
+#include "GameObjectFactory.h"
 #include "InputHandler.h"
 
-class MenuButton: public SDLGameObject {
+class MenuButton: public ShooterObject {
 public:
     MenuButton();
-    MenuButton(const LoaderParams *pParams, void (*callback)());
 
     virtual void draw();
     virtual void update();
     virtual void clean();
-    virtual void load(const LoaderParams *pParams);
+    virtual void load(std::unique_ptr<LoaderParams> const &pParams);
     virtual void setCallback(void(*callback)());
     virtual int getCallbackID();
+    // get the type of the object.
+    virtual std::string type() { return "MenuButton"; };
 private:
     enum button_state
     {

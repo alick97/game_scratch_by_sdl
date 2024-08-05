@@ -2,15 +2,13 @@
 #include "Game.h"
 
 
-ShooterObject::ShooterObject(): GameObject() {}
-
-
-ShooterObject::ShooterObject(const LoaderParams* pParams)
-    :GameObject(pParams) {
-    m_currentRow = 1;
-    m_currentFrame = 0;
-}
-
+ShooterObject::ShooterObject(): GameObject(),
+    m_bulletCounter(0),
+    m_bulletFiringSpeed(0),
+    m_moveSpeed(0),
+    m_dyingTime(0),
+    m_dyingCounter(0),
+    m_bPlayedDeathSound(false) {}
 
 void ShooterObject::load(std::unique_ptr<LoaderParams> const &pParams) {
     m_position = Vector2D(pParams->getX(), pParams->getY());
@@ -28,11 +26,11 @@ void ShooterObject::draw() {
     if (m_velocity.getX() >= 0) {
         TheTextureManager::Instance()->drawFrame(m_textureID, (int)m_position.getX(),
         int(m_position.getY()), m_width, m_height, m_currentRow, m_currentFrame,
-        TheGame::Instance()->getRender());
+        TheGame::Instance()->getRender(), m_angle, m_alpha);
     } else {
         TheTextureManager::Instance()->drawFrame(m_textureID, (int)m_position.getX(),
         int(m_position.getY()), m_width, m_height, m_currentRow, m_currentFrame,
-        TheGame::Instance()->getRender(), SDL_FLIP_HORIZONTAL);
+        TheGame::Instance()->getRender(), m_angle, m_alpha, SDL_FLIP_HORIZONTAL);
     }
 }
 
@@ -52,7 +50,7 @@ void ShooterObject::doDyingAnimation() {
     // 3 fps
     m_currentFrame = int(((SDL_GetTicks() / (1000 / 3)) % m_numFrames));
     
-    if (m_dyingCounter == m_dyingTime) {
+    if (m_dyingCounter >= m_dyingTime) {
         m_bDead = true;
     }
     m_dyingCounter++; // simple counter, fine with fixed frame rate

@@ -1,8 +1,12 @@
 #include "PlayState.h"
+#include "BulletHandler.h"
 
 const std::string PlayState::s_playID  = "PLAY";
 
 void PlayState::update(){
+    if (!m_loadingComplete || m_exiting) {
+        return;
+    }
     if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_ESCAPE)) {
         TheGame::Instance()->getStateMachine()->pushState(new PauseState());
     }
@@ -19,26 +23,49 @@ void PlayState::update(){
     //              break;
     //      }
     //  }
-    
-    pLevel -> update();
+    TheBulletHandler::Instance()->updateBullets();
+    if(TheGame::Instance()->getPlayerLives() == 0) {
+        TheGame::Instance()->getStateMachine()->changeState(new GameOverState());
+    }
+        
+    if(pLevel != nullptr) {
+        pLevel->update();
+    }
     
 }
 
 void PlayState::render() {
-    // for (int i = 0; i < m_gameObjects.size(); ++i) {
-    //    m_gameObjects[i]->draw();
-    // }
+    if(!m_loadingComplete) {
+        return;
+    }
     
-    pLevel -> render();
+    if(pLevel != nullptr) {
+        pLevel -> render();
+    }
+    
+     
+    for(int i = 0; i < TheGame::Instance()->getPlayerLives(); i++) {
+        TheTextureManager::Instance()->drawFrame("lives", i * 30, 0, 32, 30, 0, 0, TheGame::Instance()->getRender(), 0.0, 255);
+    }
+    
+    TheBulletHandler::Instance()->drawBullets();
 }
 
 bool PlayState::onEnter() {
-    // Parse the state.
-    // StateParser stateParser;
-    // stateParser.parseState("assets/test.xml", s_playID, &m_gameObjects, &m_textureIDList);
-    
+    TheGame::Instance()->setPlayerLives(3);
     LevelParser levelParser;
-    pLevel = levelParser.parseLevel("map1.tmx");
+    pLevel = levelParser.parseLevel(TheGame::Instance()->getLevelFiles()[TheGame::Instance()->getCurrentLevel() - 1].c_str());
+    
+    TheTextureManager::Instance()->load("assets/bullet1.png", "bullet1", TheGame::Instance()->getRender());
+    TheTextureManager::Instance()->load("assets/bullet2.png", "bullet2", TheGame::Instance()->getRender());
+    TheTextureManager::Instance()->load("assets/bullet3.png", "bullet3", TheGame::Instance()->getRender());
+    TheTextureManager::Instance()->load("assets/lives.png", "lives", TheGame::Instance()->getRender());
+    
+    if(pLevel != 0)
+    {
+        m_loadingComplete = true;
+    }
+    
 
     std::cout << "entering PlayStat\n";
     return true;
@@ -62,28 +89,28 @@ std::string PlayState::getStateID() const {
     return s_playID;
 }
 
-bool PlayState::checkCollision(SDLGameObject *p1, SDLGameObject *p2) {
-    int leftA, leftB;
-    int rightA, rightB;
-    int topA, topB;
-    int bottomA, bottomB;
-
-    leftA = p1->getPosition().getX();
-    rightA = p1->getPosition().getX() + p1->getWidth();
-    topA = p1->getPosition().getY();
-    bottomA = p1->getPosition().getY() + p1->getHeight();
-
-    // calculate the sides of rect B
-    leftB = p2->getPosition().getX();
-    rightB = p2->getPosition().getX() + p2->getWidth();
-    topB = p2->getPosition().getY();
-    bottomB = p2->getPosition().getY() + p2->getHeight();
-
-    // if any of the sides from A are outside of B
-    if (bottomA <= topB) { return false; }
-    if (topA >= bottomB) { return false; }
-    if (rightA <= leftB) { return false; }
-    if (leftA >= rightB) { return false; }
-    
-    return true;
-}
+// bool PlayState::checkCollision(GameObject *p1, GameObject *p2) {
+//     int leftA, leftB;
+//     int rightA, rightB;
+//     int topA, topB;
+//     int bottomA, bottomB;
+// 
+//     leftA = p1->getPosition().getX();
+//     rightA = p1->getPosition().getX() + p1->getWidth();
+//     topA = p1->getPosition().getY();
+//     bottomA = p1->getPosition().getY() + p1->getHeight();
+// 
+//     // calculate the sides of rect B
+//     leftB = p2->getPosition().getX();
+//     rightB = p2->getPosition().getX() + p2->getWidth();
+//     topB = p2->getPosition().getY();
+//     bottomB = p2->getPosition().getY() + p2->getHeight();
+// 
+//     // if any of the sides from A are outside of B
+//     if (bottomA <= topB) { return false; }
+//     if (topA >= bottomB) { return false; }
+//     if (rightA <= leftB) { return false; }
+//     if (leftA >= rightB) { return false; }
+//     
+//     return true;
+// }

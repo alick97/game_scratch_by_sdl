@@ -1,5 +1,6 @@
 #include "LevelParser.h"
 #include "ObjectLayer.h"
+#include "GameObjectFactory.h"
 
 Level *LevelParser::parseLevel(const char *levelFile)
 {
@@ -149,7 +150,9 @@ void LevelParser::parseObjectLayer(tinyxml2::XMLElement *pObjectElement, std::ve
             // get the initial node values type, x and y
             x = e->IntAttribute("x");
             y = e->IntAttribute("y");
-            GameObject *pGameObject = TheGameObjectFactory::Instance()->create(e -> Attribute("class"));
+            std::string type;
+            type = e->Attribute("type");
+            GameObject *pGameObject = TheGameObjectFactory::Instance()->create(type);
             // get the property values
             for (tinyxml2::XMLElement *properties = e->FirstChildElement();
                  properties != NULL; properties = properties -> NextSiblingElement())

@@ -11,9 +11,11 @@
 #include "GameOverState.h"
 #include "LevelParser.h"
 #include "Level.h"
+#include "CollisionManager.h"
 
 class PlayState: public GameState {
 public:
+    virtual ~PlayState() { delete pLevel; }
     void update() override;
     void render() override;
 
@@ -25,8 +27,7 @@ private:
     static const std::string s_playID;
     std::vector<GameObject*> m_gameObjects;
     Level *pLevel;
-    
-    bool checkCollision(SDLGameObject *p1, SDLGameObject *p2);
+    CollisionManager m_collisionManager; 
 };
 // #include "Game.h"
 #endif

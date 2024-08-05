@@ -7,14 +7,12 @@
 #include <SDL_image.h>
 #include <iostream>
 #include <vector>
-#include "Player.h"
-#include "Enemy.h"
 #include "GameStateMachine.h"
+
 
 class Game {
 public:
     static Game* Instance();
-    ~Game() {}
 
     // simple set the running variable to true
     bool init(const char* title, int xpos, int ypos, int width,
@@ -32,16 +30,24 @@ public:
     GameStateMachine* getStateMachine();
     int getGameWidth() const;
     int getGameHeight() const;
-    int getScrollSpeed() const;
+    float getScrollSpeed() const;
     int getPlayerLives() const;
     void setPlayerLives(int lives);
     
     bool getLevelComplete();
     void setCurrentLevel(int level);
     int getCurrentLevel();
+    std::vector<std::string> getLevelFiles() { return m_levelFiles; }
+    
+    bool changingState() { return m_bChangingState; }
+	void changingState(bool cs) { m_bChangingState = cs; }
 
 private:
-    Game() {};
+    Game();
+    ~Game();
+    Game(const Game&);
+    Game operator=(const Game&);
+
     static Game* s_pInstance;
     SDL_Window* m_pWindow;
     SDL_Renderer* m_pRenderer;
@@ -56,12 +62,11 @@ private:
     int m_playerLives;
     int m_currentLevel;
     bool m_bLevelComplete;
+    bool m_bChangingState;
 
-    // game object
-    // GameObject m_go;
-    // Player m_player;
     GameStateMachine *m_pGameStateMachine;
     std::vector<GameObject*> m_gameObject;
+    std::vector<std::string> m_levelFiles;
     // game object
     GameObject* m_player;
     GameObject* m_enemy1;

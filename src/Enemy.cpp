@@ -2,13 +2,6 @@
 
 Enemy::Enemy(): ShooterObject() {}
 
-Enemy::Enemy(const LoaderParams* pParams, int numFrames) : 
-    ShooterObject(pParams) {
-        m_numFrames = numFrames;
-        m_velocity.setY(2);
-        m_velocity.setX(0.001);
-    }
-
 void Enemy::draw() {
     ShooterObject::draw();
 }
@@ -28,11 +21,7 @@ void Enemy::update() {
 void Enemy::clean() {}
 
 
-void Enemy::load(const LoaderParams *pParams) {
+void Enemy::load(std::unique_ptr<LoaderParams>  const &pParams) {
     ShooterObject::load(pParams);
     m_velocity.setY(2);
-}
-
-GameObject* EnemyCreator::createGameObject() const {
-    return new Enemy();
 }

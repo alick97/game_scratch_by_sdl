@@ -1,6 +1,36 @@
 #include "Game.h"
+#include "SoundManager.h"
 #include "MainMenuState.h"
 #include "PlayState.h"
+#include "ScrollingBackground.h"
+#include "Turret.h"
+#include "Glider.h"
+
+Game::~Game() {
+    m_pRenderer = nullptr;
+    m_pWindow = nullptr;
+
+}
+
+
+Game::Game():
+m_pWindow(0),
+m_pRenderer(0),
+m_bRunning(false),
+m_pGameStateMachine(0),
+m_playerLives(3),
+m_scrollSpeed(0.8),
+m_bLevelComplete(false),
+m_bChangingState(false)
+{
+    // add some level files to an array
+    m_levelFiles.push_back("assets/map1.tmx");
+    m_levelFiles.push_back("assets/map2.tmx");
+    
+    // start at this level
+    m_currentLevel = 1;
+}
+
 
 bool Game::init(const char* title, int xpos, int ypos,
 int width, int height, bool fullscreen) {
@@ -40,12 +70,30 @@ int width, int height, bool fullscreen) {
         std::cout << "SDL init fail\n";
         return false; // SDL init fail
     }
+    
+    // add some sound effects.
+    TheSoundManager::Instance()->load("assets/DST_ElectroRock.ogg", "music1", SOUND_MUSIC);
+    TheSoundManager::Instance()->load("assets/boom.wav", "explode", SOUND_SFX);
+    TheSoundManager::Instance()->load("assets/phaser.wav", "shoot", SOUND_SFX);
+
+    TheSoundManager::Instance()->playMusic("music1", -1);
 
     // Register GameObject creater to GameObjectFactory.
     TheGameObjectFactory::Instance()->registerType("MenuButton", new MenuButtonCreator());
     TheGameObjectFactory::Instance()->registerType("Player", new PlayerCreator());
-    TheGameObjectFactory::Instance()->registerType("Enemy", new EnemyCreator());
     TheGameObjectFactory::Instance()->registerType("AnimatedGraphic", new AnimateGraphicCreator());
+    TheGameObjectFactory::Instance()->registerType("ScrollingBackground", new ScrollingBackgroundCreator());
+    TheGameObjectFactory::Instance()->registerType("Turret", new TurretCreator());
+    TheGameObjectFactory::Instance()->registerType("Glider", new GliderCreator());
+    // TODO: add other ememy.
+    // TheGameObjectFactory::Instance()->registerType("ShotGlider", new ShotGliderCreator());
+    // TheGameObjectFactory::Instance()->registerType("RoofTurret", new RoofTurretCreator());
+    // TheGameObjectFactory::Instance()->registerType("Eskeletor", new EskeletorCreator());
+    // TheGameObjectFactory::Instance()->registerType("Level1Boss", new Level1BossCreator());
+    TheGameObjectFactory::Instance()->registerType("ShotGlider", new GliderCreator());
+    TheGameObjectFactory::Instance()->registerType("RoofTurret", new GliderCreator());
+    TheGameObjectFactory::Instance()->registerType("Eskeletor", new GliderCreator());
+    TheGameObjectFactory::Instance()->registerType("Level1Boss", new GliderCreator());
 
     // init handle events system
     TheInputHandler::Instance()->initialiseJoysticks();
@@ -149,4 +197,4 @@ int Game::getCurrentLevel() {
 }
 
 
-Game* Game::s_pInstance = NULL;
+Game* Game::s_pInstance = nullptr;

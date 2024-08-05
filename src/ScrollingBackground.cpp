@@ -1,7 +1,7 @@
-#include <ScrollingBackground.h>
+#include "ScrollingBackground.h"
 #include "Game.h"
 
-ScrollingBackground::ScrollingBackground(): GameObject() {
+ScrollingBackground::ScrollingBackground(): ShooterObject() {
     m_count = 0;
     m_maxCount = 10;
 }
@@ -50,7 +50,7 @@ void ScrollingBackground::update() {
 }
 
 void ScrollingBackground::load(std::unique_ptr<LoaderParams> const &pParams) {
-    GameObject::load(std::move(pParams));
+    ShooterObject::load(std::move(pParams));
     
     m_scrollSpeed = 1;
 

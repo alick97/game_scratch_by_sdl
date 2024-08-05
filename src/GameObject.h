@@ -3,9 +3,10 @@
 
 #include <SDL.h>
 #include <iostream>
+#include <memory>
 #include "TextureManager.h"
 #include "LoaderParams.h"
-#include <memory>
+#include "Vector2D.h"
 
 class GameObject {
 public:
@@ -21,10 +22,16 @@ public:
     virtual std::string type() = 0;
     // getters for common variables.
     Vector2D& getPosition() { return m_position; }
+    Vector2D& getVelocity() { return m_velocity; }
     int getWidth() { return m_width; }
     int getHeight() { return m_height; }
     // scroll along with tile map.
-    void scroll (float scrollSpeed) { m_position.setX(m_position.getX() - scrollSpeed); }
+    void scroll (float scrollSpeed) { 
+        if (type() == std::string("Player")) {
+            return;
+        }
+        m_position.setX(m_position.getX() - scrollSpeed);
+    }
     // is the object currently being updated?
     bool updating() { return m_bUpdating; }
     // is the obejct dead?

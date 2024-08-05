@@ -22,6 +22,8 @@ SDL_Renderer* pRender) {
     }
 
     // reaching here means something went wrong
+    std::cerr << "Error creating texture: " << SDL_GetError() << std::endl;
+
     return false;
 }
 
