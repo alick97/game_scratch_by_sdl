@@ -20,10 +20,8 @@ git submodule update
 
 ### Compile
 ```
-mkdir build
-cd build
-cmake ..
-make
+cmake -B build -S .
+cmake --build build -j
 ```
 
 ### Run
