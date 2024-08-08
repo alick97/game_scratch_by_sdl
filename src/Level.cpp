@@ -5,7 +5,7 @@ Level::~Level() {}
 
 void Level::update() {
     for (auto p_layer : m_layers) {
-        p_layer->update();
+        p_layer->update(this);
     }
 
 }

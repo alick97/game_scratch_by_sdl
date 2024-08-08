@@ -2,11 +2,13 @@
 #define __OBJECT_LAYER_H__
 #include "GameObject.h"
 #include "Layer.h"
+#include "CollisionManager.h"
 #include <vector>
 
 class ObjectLayer: public Layer {
     public:
-        void update() override;
+        virtual ~ObjectLayer();
+        void update(Level *pLevel) override;
         void render() override;
         
         std::vector<GameObject*>* getGameObjects() {
@@ -15,6 +17,8 @@ class ObjectLayer: public Layer {
         
     
     private:
+        // check for collisions between game objects
+        CollisionManager m_collisionManager;
         std::vector<GameObject*> m_gameObjects;
 };
 #endif

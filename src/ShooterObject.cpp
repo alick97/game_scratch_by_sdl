@@ -35,8 +35,9 @@ void ShooterObject::draw() {
 }
 
 void ShooterObject::update() {
-    m_velocity += m_acceleration;
+    // m_velocity += m_acceleration;
     m_position += m_velocity;
+    m_currentFrame = int(((SDL_GetTicks() / (1000 / 3)) % m_numFrames));
 }
 
 void ShooterObject::clean() {
@@ -47,8 +48,8 @@ void ShooterObject::doDyingAnimation() {
     // keep scrolling with the map.
     scroll(TheGame::Instance()->getScrollSpeed());
     
-    // 3 fps
-    m_currentFrame = int(((SDL_GetTicks() / (1000 / 3)) % m_numFrames));
+    // 10 fps
+    m_currentFrame = int(((SDL_GetTicks() / (1000 / 10)) % m_numFrames));
     
     if (m_dyingCounter >= m_dyingTime) {
         m_bDead = true;

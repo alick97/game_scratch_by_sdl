@@ -12,7 +12,7 @@ public:
     TileLayer(int tileSize, const std::vector<Tileset> &tilesets);
     virtual ~TileLayer() {}
 
-    void update() override;
+    void update(Level *pLevel) override;
     void render() override;
 
     void setTileIDs(const std::vector<std::vector<int>>& data);
